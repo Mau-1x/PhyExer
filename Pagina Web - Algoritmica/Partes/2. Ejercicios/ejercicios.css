@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    position: relative;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.8);
+    top: 0;
+    transition: top 0.3s ease;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 8px;
+}
+
+.logo-container {
+    margin-right: auto;
+}
+
+.logo-container img {
+    height: 40px;
+    width: auto;
+}
+
+.navbar-nav {
+    display: flex;
+    list-style-type: none;
+    gap: 30px;
+    padding-right: 22px;
+}
+
+.nav-item a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+main {
+    padding: 20px;
+}
+
+.exercise {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 20px 0;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.exercise-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}

@@ -1,0 +1,229 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.8);
+    top: 0;
+    transition: top 0.3s ease;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 8px;
+}
+
+.logo-container {
+    margin-right: auto;
+}
+
+.logo-container img {
+    height: 40px;
+    width: auto;
+}
+
+.navbar-nav {
+    display: flex;
+    list-style-type: none;
+    gap: 30px;
+    padding-right: 22px;
+}
+
+.nav-item a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-item a:hover {
+    color: #840303;
+}
+
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.dots-container {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 100;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background: white;
+}
+
+/* Estilos del Footer */
+.footer {
+    background-color: #222;
+    color: #bbbbbb;
+    padding: 40px 20px;
+}
+
+.uni {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.users {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 10px;
+}
+
+.redes {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    padding: 25px;
+    border-top: 1px solid #5b5b5b;
+}
+
+.redes a {
+    color: #bbbbbb;
+    font-size: 25px;
+    transition: all 0.3s ease;
+}
+
+.redes a:hover {
+    transform: scale(1.2);
+}
+
+.derechos {
+    text-align: center;
+    background-color: #141414;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .navbar-nav {
+        display: none;
+    }
+
+    .box {
+        width: 100%;
+    }
+
+    .boxes-container {
+        flex-direction: column;
+    }
+
+    .uni {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .users {
+        grid-template-columns: repeat(2, auto);
+    }
+}
+
+#slider{
+    margin: 0 auto;
+    width: 1450px;
+    height: 500px;
+    overflow: hidden;
+    background-color: black;    
+    position: relative;
+    display: flex;
+}
+
+#slider img{
+    margin: 0 auto;
+    -moz-transition: opacity 2s;
+    -webkit-transition: opacity 2s;
+    transition: opacity 2s;
+    width: 1450px;
+    height: 500px;
+    position: absolute;
+    opacity: 0;
+    object-fit: cover;
+}
+/*Para que la primera imagen este activa al inicio*/
+#slider img:nth-child(1){
+    opacity: 1;
+}
+#slider{
+    display: flex;
+    flex-direction: row;
+}
+/*Estilo del contenido principal*/
+
+.box {
+    background-color: #444;
+    border: 2px solid #555;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+}
+img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+h2 {
+    color: #00ff00;
+}
+.logo-u{
+    width: 50px;
+    height: 50px;
+}
+h3{
+    text-align: center;
+}

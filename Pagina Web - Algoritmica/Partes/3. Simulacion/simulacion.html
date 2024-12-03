@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Trabajo Mecánico</title>
+    <link rel="stylesheet" href="simulacion.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <img src="img/logo.filmotz.original.png" alt="">
+            </div>
+            <nav>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="../1. Inicio/inicio.html">Inicio</a></li>
+                    <li class="nav-item"><a href="../2. Ejercicios/ejercicios.html">Ejercicios</a></li>
+                    <li class="nav-item"><a href="../3. Simulacion/simulacion.html">Simulacion</a></li>
+                    <li class="nav-item"><a href="../4. Sobre Nosotros/Sobrenosotros.html">Sobre nosotros</a></li>
+                    <li class="nav-item"><a href="../5. Contactos/contactos.html">Contactos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+
+
+
+
+
+
+
+    
+    <div class="container">
+        <h1>Simulador de Trabajo Mecánico</h1>
+        <div id="formula">Trabajo Mecánico (W) = Fuerza (F) × Desplazamiento (d)</div>
+        <div class="controls">
+            <div class="control-group">
+                <label for="force">Fuerza (N): <span id="forceValue">50</span></label>
+                <input type="range" id="force" min="0" max="100" value="50" aria-labelledby="forceValue">
+            </div>
+            <div class="control-group">
+                <label for="displacement">Desplazamiento (m): <span id="displacementValue">5</span></label>
+                <input type="range" id="displacement" min="0" max="10" value="5" step="0.1" aria-labelledby="displacementValue">
+            </div>
+        </div>
+        <canvas id="canvas" width="800" height="300" aria-label="Simulación visual de trabajo mecánico"></canvas>
+        <div id="result" aria-live="polite">Trabajo Mecánico: 250.00 Joules</div>
+        <button id="startSimulation">Iniciar Simulación</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const forceSlider = document.getElementById('force');
+        const displacementSlider = document.getElementById('displacement');
+        const forceValue = document.getElementById('forceValue');
+        const displacementValue = document.getElementById('displacementValue');
+        const resultDiv = document.getElementById('result');
+        const startButton = document.getElementById('startSimulation');
+
+        let animationId;
+        let currentPosition = 0;
+        let isAnimating = false;
+
+        const carImage = new Image();
+        carImage.src = 'img/ga.png';
+
+        function drawScene() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Dibuja el cielo
+    const skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height / 2);
+    skyGradient.addColorStop(0, '#87CEEB'); // Azul cielo
+    skyGradient.addColorStop(1, '#FFFFFF'); // Blanco
+    ctx.fillStyle = skyGradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height / 2);
+
+    // Dibuja la carretera
+    ctx.fillStyle = '#505050'; // Gris oscuro
+    ctx.fillRect(0, 250, canvas.width, 50);
+
+    // Dibuja líneas de carretera
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.lineWidth = 2;
+    for (let i = 0; i < canvas.width; i += 40) {
+        ctx.beginPath();
+        ctx.moveTo(i, 275);
+        ctx.lineTo(i + 20, 275);
+        ctx.stroke();
+    }
+
+    // Dibuja el carro
+    ctx.drawImage(carImage, currentPosition, 200, 120, 120);
+
+    // Dibuja la persona detrás del carro
+    const personX = currentPosition - 10; // Posiciona a la persona más cerca del carro
+    const personY = 260;
+
+    // Cabeza
+    ctx.beginPath();
+    ctx.arc(personX + 5, personY - 40, 10, 0, Math.PI * 2, false);
+    ctx.fillStyle = '#FF4081';
+    ctx.fill();
+
+    // Cuerpo
+    ctx.beginPath();
+    ctx.moveTo(personX + 5, personY - 30);
+    ctx.lineTo(personX + 5, personY);
+    ctx.strokeStyle = '#FF4081';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // Piernas
+    ctx.beginPath();
+    ctx.moveTo(personX + 5, personY);
+    ctx.lineTo(personX, personY + 20);
+    ctx.moveTo(personX + 5, personY);
+    ctx.lineTo(personX + 10, personY + 20);
+    ctx.stroke();
+
+    // Brazo empujando
+    ctx.beginPath();
+    ctx.moveTo(personX + 5, personY - 20);
+    ctx.lineTo(currentPosition, personY - 10);
+    ctx.stroke();
+}
+
+
+        function updateSimulation() {
+            const force = parseFloat(forceSlider.value);
+            const displacement = parseFloat(displacementSlider.value);
+            const work = force * displacement;
+
+            forceValue.textContent = force.toFixed(2);
+            displacementValue.textContent = displacement.toFixed(2);
+            resultDiv.textContent = `Trabajo Mecánico: ${work.toFixed(2)} Joules`;
+
+            drawScene();
+        }
+
+        function animate() {
+            if (currentPosition < displacementSlider.value * 50) {
+                currentPosition += 2;
+                drawScene();
+                animationId = requestAnimationFrame(animate);
+            } else {
+                isAnimating = false;
+                startButton.textContent = 'Iniciar Simulación';
+            }
+        }
+
+        forceSlider.addEventListener('input', updateSimulation);
+        displacementSlider.addEventListener('input', updateSimulation);
+
+        startButton.addEventListener('click', () => {
+            if (isAnimating) {
+                cancelAnimationFrame(animationId);
+                isAnimating = false;
+                startButton.textContent = 'Iniciar Simulación';
+            } else {
+                currentPosition = 0;
+                isAnimating = true;
+                startButton.textContent = 'Detener Simulación';
+                animate();
+            }
+        });
+
+        updateSimulation();
+    </script>
+</body>
+</html>
